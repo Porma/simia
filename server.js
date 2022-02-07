@@ -1,16 +1,14 @@
-const http = require('http');
+const express = require("express");
+const path = require("path");
 
-const config = require('./config');
+const config = require("./config");
 
-const hostname = config.app.hostname;
+const app = express();
 const port = config.app.port;
 
-const server = http.createServer((req, res) => {
-  res.statusCode = 200;
-  res.setHeader('Content-Type', 'text/plain');
-  res.end('Hello World');
-});
+// Statically serve frontend files
+app.use(express.static("app"));
 
-server.listen(port, hostname, () => {
-  console.log(`Server running at http://${hostname}:${port}/`);
+app.listen(port, () => {
+  console.log(`Simia listening on port ${port}`);
 });

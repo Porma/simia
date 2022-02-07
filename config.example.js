@@ -2,7 +2,6 @@
 
 module.exports = {
   app: {
-    hostname: '',
     port: 0,
   }
 }
