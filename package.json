@@ -1,0 +1,19 @@
+{
+  "name": "simia",
+  "version": "0.0.0",
+  "description": "Backend API for Simia",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Porma/simia.git"
+  },
+  "author": "Pramodh Ganeshan",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Porma/simia/issues"
+  },
+  "homepage": "https://github.com/Porma/simia#readme"
+}
