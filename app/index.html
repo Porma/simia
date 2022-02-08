@@ -43,102 +43,26 @@
 
         <div class="col-12">
           <div class="accordion" id="task-list">
-            <div class="accordion-item">
-              <h2 class="accordion-header" id="task-1-heading">
+            <div class="accordion-item" v-for="task in tasks">
+              <h2 class="accordion-header" :id="`task-${task.id}-heading`">
                 <button
                   class="accordion-button collapsed"
                   type="button"
                   data-bs-toggle="collapse"
-                  data-bs-target="#task-1-collapse"
+                  :data-bs-target="`#task-${task.id}-collapse`"
                   aria-expanded="false"
-                  aria-controls="task-1-collapse"
+                  :aria-controls="`task-${task.id}-collapse`"
                 >
-                  Accordion Item #1
+                  {{ task.name }}
                 </button>
               </h2>
               <div
-                id="task-1-collapse"
+                :id="`task-${task.id}-collapse`"
                 class="accordion-collapse collapse"
-                aria-labelledby="task-1-heading"
+                :aria-labelledby="`task-${task.id}-heading`"
                 data-bs-parent="#task-list"
               >
-                <div class="accordion-body">
-                  <strong>This is the first item's accordion body.</strong> It
-                  is shown by default, until the collapse plugin adds the
-                  appropriate classes that we use to style each element. These
-                  classes control the overall appearance, as well as the showing
-                  and hiding via CSS transitions. You can modify any of this
-                  with custom CSS or overriding our default variables. It's also
-                  worth noting that just about any HTML can go within the
-                  <code>.accordion-body</code>, though the transition does limit
-                  overflow.
-                </div>
-              </div>
-            </div>
-
-            <div class="accordion-item">
-              <h2 class="accordion-header" id="task-2-heading">
-                <button
-                  class="accordion-button collapsed"
-                  type="button"
-                  data-bs-toggle="collapse"
-                  data-bs-target="#task-2-collapse"
-                  aria-expanded="false"
-                  aria-controls="task-2-collapse"
-                >
-                  Accordion Item #2
-                </button>
-              </h2>
-              <div
-                id="task-2-collapse"
-                class="accordion-collapse collapse"
-                aria-labelledby="task-2-heading"
-                data-bs-parent="#task-list"
-              >
-                <div class="accordion-body">
-                  <strong>This is the first item's accordion body.</strong> It
-                  is shown by default, until the collapse plugin adds the
-                  appropriate classes that we use to style each element. These
-                  classes control the overall appearance, as well as the showing
-                  and hiding via CSS transitions. You can modify any of this
-                  with custom CSS or overriding our default variables. It's also
-                  worth noting that just about any HTML can go within the
-                  <code>.accordion-body</code>, though the transition does limit
-                  overflow.
-                </div>
-              </div>
-            </div>
-
-            <div class="accordion-item">
-              <h2 class="accordion-header" id="task-3-heading">
-                <button
-                  class="accordion-button collapsed"
-                  type="button"
-                  data-bs-toggle="collapse"
-                  data-bs-target="#task-3-collapse"
-                  aria-expanded="false"
-                  aria-controls="task-3-collapse"
-                >
-                  Accordion Item #3
-                </button>
-              </h2>
-              <div
-                id="task-3-collapse"
-                class="accordion-collapse collapse"
-                aria-labelledby="task-3-heading"
-                data-bs-parent="#task-list"
-              >
-                <div class="accordion-body">
-                  <strong>This is the first item's accordion body.</strong> It
-                  is shown by default, until the collapse plugin adds the
-                  appropriate classes that we use to style each element. These
-                  classes control the overall appearance, as well as the showing
-                  and hiding via CSS transitions. You can modify any of this
-                  with custom CSS or overriding our default variables. It's also
-                  worth noting that just about any HTML can go within the
-                  <code>.accordion-body</code>, though the transition does limit
-                  overflow.
-                </div>
+                <div class="accordion-body">{{ task.desc }}</div>
               </div>
             </div>
           </div>
@@ -172,6 +96,7 @@
                 class="form-control"
                 id="form-task-name"
                 placeholder="Add a task"
+                v-model="inputTaskName"
               />
             </div>
             <div class="mb-3">
@@ -180,6 +105,7 @@
                 class="form-control"
                 id="form-task-desc"
                 rows="3"
+                v-model="inputTaskDesc"
               ></textarea>
             </div>
           </div>
@@ -191,7 +117,14 @@
             >
               Close
             </button>
-            <button type="button" class="btn btn-primary">Add task</button>
+            <button
+              type="button"
+              class="btn btn-primary"
+              @click="addTask"
+              :data-bs-dismiss="taskValid ? 'modal' : ''"
+            >
+              Add task
+            </button>
           </div>
         </div>
       </div>
