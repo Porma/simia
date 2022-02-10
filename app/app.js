@@ -4,7 +4,7 @@ const app = Vue.createApp({
       tasks: [],
       inputTaskName: "",
       inputTaskDesc: "",
-      // taskValid: false
+
     };
   },
   computed: {
@@ -19,30 +19,37 @@ const app = Vue.createApp({
 
       // create task object
       const task = {
-        // id: this.tasks.length,
         name: this.inputTaskName,
         desc: this.inputTaskDesc,
       };
-
-      // allow modal to close and add task to array
-      this.taskValid = true;
-      this.tasks.push(task);
-
-      // POST request
+      
+      // Add new task to db
       axios({
         method: 'post',
         url: '/api/tasks',
         data: task
       }).then((res) => {
         console.log(res);
+
+        // Add returned id to task object and push to list
+        task._id = res.data;
+        this.tasks.push(task);
       });
 
       // reset input fields
       this.inputTaskName = "";
       this.inputTaskDesc = "";
     },
+  },
+  created() {
+    // Get all tasks from db
+    axios
+      .get('/api/tasks')
+      .then(res => {
+        console.log(res);
+        this.tasks = res.data;
+      });
   }
-  
 });
 
 app.mount("#app");
