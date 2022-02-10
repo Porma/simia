@@ -3,5 +3,9 @@
 module.exports = {
   app: {
     port: 0,
+  },
+  db: {
+    server: '',
+    database: ''
   }
 }

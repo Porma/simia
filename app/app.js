@@ -2,40 +2,47 @@ const app = Vue.createApp({
   data() {
     return {
       tasks: [],
-      inputTaskName: '',
-      inputTaskDesc: '',
+      inputTaskName: "",
+      inputTaskDesc: "",
       // taskValid: false
-    }
+    };
   },
   computed: {
     taskValid() {
-      return this.inputTaskName !== '';
-    }
+      return this.inputTaskName !== "";
+    },
   },
   methods: {
     addTask() {
-
       // budget validation
-      if (this.inputTaskName === '') return
+      if (this.inputTaskName === "") return;
 
       // create task object
       const task = {
-        id: this.tasks.length,
+        // id: this.tasks.length,
         name: this.inputTaskName,
-        desc: this.inputTaskDesc
-      }
+        desc: this.inputTaskDesc,
+      };
 
       // allow modal to close and add task to array
       this.taskValid = true;
       this.tasks.push(task);
 
-      // todo: POST request
+      // POST request
+      axios({
+        method: 'post',
+        url: '/api/tasks',
+        data: task
+      }).then((res) => {
+        console.log(res);
+      });
 
       // reset input fields
-      this.inputTaskName = '';
-      this.inputTaskDesc = '';
-    }
+      this.inputTaskName = "";
+      this.inputTaskDesc = "";
+    },
   }
+  
 });
 
 app.mount("#app");
